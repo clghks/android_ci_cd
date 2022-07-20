@@ -46,9 +46,6 @@ jobs:
         name: app
         path: app/build/outputs
         
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
     - name: upload artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:
