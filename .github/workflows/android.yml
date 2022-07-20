@@ -34,10 +34,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: upload artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
+    - uses: pocket-apps/action-setup-firebase@v2
       with:
-        appId: ${{secrets.FIREBASE_APP_ID}}
-        token: ${{secrets.FIREBASE_TOKEN}}
-        groups: testers
-        file: ${{ needs.build.outputs.apk }}
+        firebase-token: ${{secrets.FIREBASE_TOKEN}}
+    - name: upload artifact to Firebase App Distribution
+      run: firebase appdistribution:distribute ${{ needs.build.outputs.apk }} --token ${{secrets.FIREBASE_TOKEN}} --app ${{secrets.FIREBASE_APP_ID}} --groups "trusted-testers" --release-notes "Release server"
